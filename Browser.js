@@ -25,6 +25,12 @@ class Browser {
     } else {
       this.page = await this.browser.newPage()
     }
+
+    this.page.on("console", consoleObj => {
+      if (consoleObj._type !== "warning" && consoleObj._type !== "error") {
+        console.log(consoleObj.text());
+      }
+    });
   };
 
   goToPage = async (url) => {
